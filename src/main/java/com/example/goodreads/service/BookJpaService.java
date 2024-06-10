@@ -64,6 +64,12 @@ public class BookJpaService implements BookRepository {
             if (book.getImageUrl() != null) {
                 newBook.setImageUrl(book.getImageUrl());
             }
+            if (book.getPublisher() != null) {
+                Publisher publish = book.getPublisher();
+                int publisherId = publish.getPublisherId();
+                Publisher newPublish = publisherJpaRepository.findById(publisherId).get();
+                newBook.setPublisher(newPublish);
+            }
             bookJpaRepository.save(newBook);
             return newBook;
         } catch (Exception e) {
